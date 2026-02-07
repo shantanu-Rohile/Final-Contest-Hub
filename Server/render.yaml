@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: contest-hub-backend
+    env: node
+    rootDir: Server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true

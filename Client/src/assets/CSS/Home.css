@@ -1,0 +1,10 @@
+#log:hover {
+  transition: ease 0.3s;
+  transform: scale(1.1);
+  
+}
+
+#sign:hover {
+  transition: ease 0.3s;
+  transform: scale(1.1);
+}

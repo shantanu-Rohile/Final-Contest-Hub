@@ -1,0 +1,34 @@
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "name":"Brook",
+    "email":"brook@example.com",
+    "password":"password123"
+}
+
+###
+
+DELETE http://localhost:3000/signup/69760fa17cd18a8816ebc1f0
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email":"brook@example.com",
+    "password":"password123"
+}
+
+###
+GET http://localhost:3000/login/6978d0c6b802e06519559396
+
+###
+
+POST http://localhost:3000/room/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTc2MGUxYTY0NDc3MGIzMWYzYWY0NGQiLCJwYXNzd29yZCI6InBhc3N3b3JkMTIzIiwiaWF0IjoxNzY5NDE5MzY2fQ.DXCYCmvMe5_ExsxL6T18FaJ7FooVQB3zR1Pe5zCy22M
+
+{
+    "roomName":"FunRoom"
+}
