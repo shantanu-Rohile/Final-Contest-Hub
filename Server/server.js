@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173")
+const allowedOrigins = ("https://shantanu-rohile-contest-hub.vercel.app" || "http://localhost:5173")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
