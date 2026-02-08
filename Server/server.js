@@ -15,36 +15,42 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Render/production friendly CORS:
-// Set CLIENT_ORIGIN to a comma-separated list, e.g.
-// CLIENT_ORIGIN=http://localhost:5173,https://your-frontend.vercel.app
-const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173")
   .split(",")
   .map((s) => s.trim())
   .filter(Boolean);
 
-app.use(
-  cors({
-    origin: (origin, cb) => {
-      // allow non-browser requests (like curl/postman)
-      if (!origin) return cb(null, true);
-      if (allowedOrigins.includes(origin)) return cb(null, true);
-      return cb(new Error(`CORS blocked for origin: ${origin}`));
-    },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  })
-);
+const corsOptions = {
+  origin: (origin, cb) => {
+    console.log("CORS origin:", origin);
 
-const PORT = process.env.PORT || 3000;
-const MONGOURL = process.env.MONGOURL;
+    if (!origin) return cb(null, true);           // Postman/curl
+    if (allowedOrigins.includes(origin)) return cb(null, true);
+
+    return cb(null, false);                      // don't throw
+  },
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions)); // path wildcard, NOT origins
 
 const httpServer = createServer(app);
+
 const io = new Server(httpServer, {
   cors: {
     origin: allowedOrigins,
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
+
+
+
+const PORT = process.env.PORT || 3000;
+const MONGOURL = process.env.MONGOURL;
 
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);

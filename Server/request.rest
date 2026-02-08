@@ -1,9 +1,9 @@
-POST http://localhost:3000/signup
+POST https://final-contest-hub.onrender.com/signup
 Content-Type: application/json
 
 {
-    "name":"Brook",
-    "email":"brook@example.com",
+    "name":"Luffy",
+    "email":"luffy@example.com",
     "password":"password123"
 }
 
